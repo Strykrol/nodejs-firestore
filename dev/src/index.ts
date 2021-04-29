@@ -471,6 +471,9 @@ export class Firestore implements firestore.Firestore {
       /* clientFactory= */ () => {
         let client: GapicClient;
 
+        // HACK to force gax to use REST API
+        this._settings.fallback = 'rest';
+
         if (this._settings.ssl === false) {
           const grpcModule = this._settings.grpc ?? grpc;
           const sslCreds = grpcModule.credentials.createInsecure();
